@@ -111,7 +111,7 @@ export const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             {menuItems.map(item => <div key={item.path} className="relative" onMouseEnter={() => (item.submenu || item.megaMenu) && setActiveMenu(item.label)} onMouseLeave={() => setActiveMenu(null)}>
-                <Link to={item.path} className={cn('px-4 py-2 rounded-md text-sm font-medium transition-smooth flex items-center gap-1', location.pathname === item.path ? 'text-accent' : 'text-foreground hover:text-accent hover:bg-secondary/50')}>
+                <Link to={item.path} className={cn('px-4 py-2 rounded-md text-sm font-medium transition-smooth flex items-center gap-1', location.pathname === item.path ? 'bg-primary text-primary-foreground font-semibold' : 'text-foreground hover:bg-primary/10 hover:text-primary')}>
                   {item.label}
                   {(item.submenu || item.megaMenu) && <ChevronDown className="w-4 h-4" />}
                 </Link>
@@ -222,10 +222,10 @@ export const Header = () => {
               <nav className="flex-1 overflow-y-auto p-4">
                 {menuItems.map(item => <div key={item.path} className="mb-2">
                     {/* Main Menu Item - Clickable to expand */}
-                    {item.submenu || item.megaMenu ? <button onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)} className={cn('w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md transition-smooth', activeMenu === item.label ? 'bg-secondary text-accent' : 'hover:bg-secondary/50')}>
+                    {item.submenu || item.megaMenu ? <button onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)} className={cn('w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md transition-smooth', activeMenu === item.label ? 'bg-primary text-primary-foreground font-semibold' : 'hover:bg-primary/10 hover:text-primary')}>
                         <span>{item.label}</span>
                         <ChevronDown className={cn('w-4 h-4 transition-transform', activeMenu === item.label && 'rotate-180')} />
-                      </button> : <Link to={item.path} className={cn('flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md transition-smooth', location.pathname === item.path ? 'bg-secondary text-accent' : 'hover:bg-secondary/50')} onClick={() => setIsMobileMenuOpen(false)}>
+                      </button> : <Link to={item.path} className={cn('flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md transition-smooth', location.pathname === item.path ? 'bg-primary text-primary-foreground font-semibold' : 'hover:bg-primary/10 hover:text-primary')} onClick={() => setIsMobileMenuOpen(false)}>
                         <span>{item.label}</span>
                       </Link>}
                     
@@ -257,7 +257,7 @@ export const Header = () => {
 
                     {/* Regular Submenu - Only shows when expanded */}
                     {item.submenu && activeMenu === item.label && <div className="mt-1 space-y-1 animate-accordion-down">
-                        {item.submenu.map(subItem => <Link key={subItem.path} to={subItem.path} className={cn('block px-4 py-2 text-sm rounded-md transition-smooth', language === 'fa' ? 'pr-8' : 'pl-8', location.pathname === subItem.path ? 'text-accent bg-secondary/50' : 'text-muted-foreground hover:text-foreground hover:bg-secondary/30')} onClick={() => {
+                        {item.submenu.map(subItem => <Link key={subItem.path} to={subItem.path} className={cn('block px-4 py-2 text-sm rounded-md transition-smooth', language === 'fa' ? 'pr-8' : 'pl-8', location.pathname === subItem.path ? 'bg-primary/20 text-primary font-semibold' : 'text-muted-foreground hover:text-primary hover:bg-primary/10')} onClick={() => {
                     setIsMobileMenuOpen(false);
                     setActiveMenu(null);
                   }}>
