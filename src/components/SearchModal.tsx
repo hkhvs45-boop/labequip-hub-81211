@@ -24,15 +24,33 @@ export const SearchModal = ({
   // AI-powered suggestions based on popular searches
   const aiSuggestions = language === 'fa' ? ['سنسورهای ATEX', 'کالیبراسیون NJ', 'تجهیزات آنالیز', 'ابزار دقیق'] : ['ATEX sensors', 'NJ calibration', 'Analytical equipment', 'Precision instruments'];
 
-  // Search results filtering
+  // Enhanced search results filtering - searches in multiple fields
   const searchResults = query.trim() ? products.filter(product => {
     const searchTerm = query.toLowerCase();
-    const name = (language === 'fa' ? product.name : product.nameEn).toLowerCase();
+    
+    // Search in both Persian and English names
+    const nameFa = product.name.toLowerCase();
+    const nameEn = product.nameEn.toLowerCase();
+    
+    // Search in categories and subcategories
     const category = product.category.toLowerCase();
-
+    const subcategoryFa = (product.subcategory || '').toLowerCase();
+    const subcategoryEn = (product.subcategoryEn || '').toLowerCase();
+    
+    // Search in description if available
+    const description = (product.description || '').toLowerCase();
+    
     // Convert specs object to searchable string
     const specsStr = product.specs ? Object.values(product.specs).filter(Boolean).join(' ').toLowerCase() : '';
-    return name.includes(searchTerm) || category.includes(searchTerm) || specsStr.includes(searchTerm);
+    
+    // Search in all fields for comprehensive results
+    return nameFa.includes(searchTerm) || 
+           nameEn.includes(searchTerm) || 
+           category.includes(searchTerm) || 
+           subcategoryFa.includes(searchTerm) ||
+           subcategoryEn.includes(searchTerm) ||
+           description.includes(searchTerm) ||
+           specsStr.includes(searchTerm);
   }).slice(0, 8) : [];
 
   // Keyboard shortcuts
@@ -101,7 +119,9 @@ export const SearchModal = ({
               <Mic />
             </button>}
           
-          
+          <button onClick={onClose} className={cn('absolute top-1/2 -translate-y-1/2 w-6 h-6 transition-colors text-muted-foreground hover:text-destructive', language === 'fa' ? 'left-5' : 'right-5')}>
+            <X />
+          </button>
         </div>
 
         {/* Results Container */}
