@@ -173,11 +173,6 @@ export default function Products() {
                             className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                          
-                          {/* Hover Badge */}
-                          <div className="absolute top-4 right-4 bg-secondary text-secondary-foreground px-3 py-1.5 rounded-full text-xs font-semibold opacity-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-110 shadow-glow-accent">
-                            {getCategoryProductCount(category.id)}+ {language === 'fa' ? 'محصول' : 'Items'}
-                          </div>
                         </div>
 
                         {/* Content Overlay */}
@@ -308,10 +303,10 @@ function getCategoryImage(categoryId: string): string {
 // Helper function for product counts
 function getCategoryProductCount(categoryId: string): number {
   const counts: Record<string, number> = {
-    'analytical': 125,
-    'precision': 85,
-    'sample-prep': 45,
-    'petroleum': 95
+    'analytical': 5,
+    'precision': 3,
+    'sample-prep': 2,
+    'petroleum': 4
   };
-  return counts[categoryId] || 50;
+  return counts[categoryId] || 0;
 }
