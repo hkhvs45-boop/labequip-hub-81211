@@ -111,9 +111,36 @@ export const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden lg:flex items-center gap-1">
             {menuItems.map(item => <div key={item.path} className="relative" onMouseEnter={() => (item.submenu || item.megaMenu) && setActiveMenu(item.label)} onMouseLeave={() => setActiveMenu(null)}>
-                <Link to={item.path} className={cn('px-4 py-2 rounded-md text-sm font-medium transition-smooth flex items-center gap-1', location.pathname === item.path ? 'bg-primary text-primary-foreground font-semibold' : 'text-foreground hover:bg-primary/10 hover:text-primary')}>
-                  {item.label}
-                  {(item.submenu || item.megaMenu) && <ChevronDown className="w-4 h-4" />}
+                <Link to={item.path} className={cn(
+                  'relative px-4 py-2 rounded-md text-sm font-medium flex items-center gap-1',
+                  'transition-all duration-300 ease-out',
+                  // Different styles for Products vs other items
+                  item.megaMenu ? (
+                    // Products - keep original simple style
+                    location.pathname === item.path 
+                      ? 'bg-primary text-primary-foreground font-semibold' 
+                      : 'text-foreground hover:bg-primary/10 hover:text-primary'
+                  ) : (
+                    // Other menu items - enhanced animations
+                    location.pathname === item.path
+                      ? 'text-primary font-semibold before:absolute before:bottom-0 before:left-0 before:w-full before:h-0.5 before:bg-gradient-to-r before:from-primary before:to-secondary'
+                      : cn(
+                          'text-foreground',
+                          'hover:text-primary',
+                          'before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5',
+                          'before:bg-gradient-to-r before:from-primary before:to-secondary',
+                          'before:transition-all before:duration-300 before:ease-out',
+                          'hover:before:w-full',
+                          'after:absolute after:inset-0 after:rounded-md',
+                          'after:bg-primary/5 after:scale-0 after:origin-center',
+                          'after:transition-transform after:duration-300 after:ease-out',
+                          'hover:after:scale-100',
+                          'hover:shadow-sm'
+                        )
+                  )
+                )}>
+                  <span className="relative z-10">{item.label}</span>
+                  {(item.submenu || item.megaMenu) && <ChevronDown className="w-4 h-4 relative z-10" />}
                 </Link>
 
                 {/* Submenu */}
@@ -222,11 +249,36 @@ export const Header = () => {
               <nav className="flex-1 overflow-y-auto p-4">
                 {menuItems.map(item => <div key={item.path} className="mb-2">
                     {/* Main Menu Item - Clickable to expand */}
-                    {item.submenu || item.megaMenu ? <button onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)} className={cn('w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md transition-smooth', activeMenu === item.label ? 'bg-primary text-primary-foreground font-semibold' : 'hover:bg-primary/10 hover:text-primary')}>
-                        <span>{item.label}</span>
-                        <ChevronDown className={cn('w-4 h-4 transition-transform', activeMenu === item.label && 'rotate-180')} />
-                      </button> : <Link to={item.path} className={cn('flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md transition-smooth', location.pathname === item.path ? 'bg-primary text-primary-foreground font-semibold' : 'hover:bg-primary/10 hover:text-primary')} onClick={() => setIsMobileMenuOpen(false)}>
-                        <span>{item.label}</span>
+                    {item.submenu || item.megaMenu ? <button onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)} className={cn(
+                      'w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md',
+                      'transition-all duration-300 ease-out',
+                      // Products - keep original simple style
+                      item.megaMenu ? (
+                        activeMenu === item.label 
+                          ? 'bg-primary text-primary-foreground font-semibold' 
+                          : 'hover:bg-primary/10 hover:text-primary'
+                      ) : (
+                        // Other expandable items (Services, Resources) - enhanced
+                        activeMenu === item.label
+                          ? 'bg-gradient-to-r from-primary/20 to-secondary/20 text-primary font-semibold border-l-2 border-primary shadow-sm'
+                          : 'hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5 hover:text-primary hover:border-l-2 hover:border-primary/50 hover:shadow-sm'
+                      )
+                    )}>
+                        <span className="relative z-10">{item.label}</span>
+                        <ChevronDown className={cn('w-4 h-4 transition-transform duration-300', activeMenu === item.label && 'rotate-180')} />
+                      </button> : <Link to={item.path} className={cn(
+                        'flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md',
+                        'transition-all duration-300 ease-out',
+                        'relative overflow-hidden',
+                        location.pathname === item.path 
+                          ? 'bg-gradient-to-r from-primary/20 to-secondary/20 text-primary font-semibold border-l-2 border-primary shadow-sm' 
+                          : cn(
+                              'hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5',
+                              'hover:text-primary hover:border-l-2 hover:border-primary/50',
+                              'hover:shadow-sm hover:translate-x-1'
+                            )
+                      )} onClick={() => setIsMobileMenuOpen(false)}>
+                        <span className="relative z-10">{item.label}</span>
                       </Link>}
                     
                     {/* Products Mega Menu - Only shows when expanded */}
@@ -257,7 +309,20 @@ export const Header = () => {
 
                     {/* Regular Submenu - Only shows when expanded */}
                     {item.submenu && activeMenu === item.label && <div className="mt-1 space-y-1 animate-accordion-down">
-                        {item.submenu.map(subItem => <Link key={subItem.path} to={subItem.path} className={cn('block px-4 py-2 text-sm rounded-md transition-smooth', language === 'fa' ? 'pr-8' : 'pl-8', location.pathname === subItem.path ? 'bg-primary/20 text-primary font-semibold' : 'text-muted-foreground hover:text-primary hover:bg-primary/10')} onClick={() => {
+                        {item.submenu.map(subItem => <Link key={subItem.path} to={subItem.path} className={cn(
+                          'block px-4 py-2 text-sm rounded-md',
+                          'transition-all duration-300 ease-out',
+                          'relative',
+                          language === 'fa' ? 'pr-8' : 'pl-8',
+                          location.pathname === subItem.path 
+                            ? 'bg-gradient-to-r from-primary/20 to-secondary/20 text-primary font-semibold border-l-2 border-primary' 
+                            : cn(
+                                'text-muted-foreground',
+                                'hover:text-primary hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5',
+                                'hover:border-l-2 hover:border-primary/50',
+                                'hover:translate-x-1'
+                              )
+                        )} onClick={() => {
                     setIsMobileMenuOpen(false);
                     setActiveMenu(null);
                   }}>
