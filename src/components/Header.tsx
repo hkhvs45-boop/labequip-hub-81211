@@ -114,30 +114,22 @@ export const Header = () => {
                 <Link to={item.path} className={cn(
                   'relative px-4 py-2 rounded-md text-sm font-medium flex items-center gap-1',
                   'transition-all duration-300 ease-out',
-                  // Different styles for Products vs other items
-                  item.megaMenu ? (
-                    // Products - keep original simple style
-                    location.pathname === item.path 
-                      ? 'bg-primary text-primary-foreground font-semibold' 
-                      : 'text-foreground hover:bg-primary/10 hover:text-primary'
-                  ) : (
-                    // Other menu items - enhanced animations
-                    location.pathname === item.path
-                      ? 'text-primary font-semibold before:absolute before:bottom-0 before:left-0 before:w-full before:h-0.5 before:bg-gradient-to-r before:from-primary before:to-secondary'
-                      : cn(
-                          'text-foreground',
-                          'hover:text-primary',
-                          'before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5',
-                          'before:bg-gradient-to-r before:from-primary before:to-secondary',
-                          'before:transition-all before:duration-300 before:ease-out',
-                          'hover:before:w-full',
-                          'after:absolute after:inset-0 after:rounded-md',
-                          'after:bg-primary/5 after:scale-0 after:origin-center',
-                          'after:transition-transform after:duration-300 after:ease-out',
-                          'hover:after:scale-100',
-                          'hover:shadow-sm'
-                        )
-                  )
+                  // Enhanced animations for all menu items
+                  location.pathname === item.path
+                    ? 'text-primary font-semibold before:absolute before:bottom-0 before:left-0 before:w-full before:h-0.5 before:bg-gradient-to-r before:from-primary before:to-secondary'
+                    : cn(
+                        'text-foreground',
+                        'hover:text-primary',
+                        'before:absolute before:bottom-0 before:left-0 before:w-0 before:h-0.5',
+                        'before:bg-gradient-to-r before:from-primary before:to-secondary',
+                        'before:transition-all before:duration-300 before:ease-out',
+                        'hover:before:w-full',
+                        'after:absolute after:inset-0 after:rounded-md',
+                        'after:bg-primary/5 after:scale-0 after:origin-center',
+                        'after:transition-transform after:duration-300 after:ease-out',
+                        'hover:after:scale-100',
+                        'hover:shadow-sm'
+                      )
                 )}>
                   <span className="relative z-10">{item.label}</span>
                   {(item.submenu || item.megaMenu) && <ChevronDown className="w-4 h-4 relative z-10" />}
@@ -252,17 +244,10 @@ export const Header = () => {
                     {item.submenu || item.megaMenu ? <button onClick={() => setActiveMenu(activeMenu === item.label ? null : item.label)} className={cn(
                       'w-full flex items-center justify-between px-4 py-3 text-sm font-medium rounded-md',
                       'transition-all duration-300 ease-out',
-                      // Products - keep original simple style
-                      item.megaMenu ? (
-                        activeMenu === item.label 
-                          ? 'bg-primary text-primary-foreground font-semibold' 
-                          : 'hover:bg-primary/10 hover:text-primary'
-                      ) : (
-                        // Other expandable items (Services, Resources) - enhanced
-                        activeMenu === item.label
-                          ? 'bg-gradient-to-r from-primary/20 to-secondary/20 text-primary font-semibold border-l-2 border-primary shadow-sm'
-                          : 'hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5 hover:text-primary hover:border-l-2 hover:border-primary/50 hover:shadow-sm'
-                      )
+                      // Enhanced animations for all expandable items
+                      activeMenu === item.label
+                        ? 'bg-gradient-to-r from-primary/20 to-secondary/20 text-primary font-semibold border-l-2 border-primary shadow-sm'
+                        : 'hover:bg-gradient-to-r hover:from-primary/5 hover:to-secondary/5 hover:text-primary hover:border-l-2 hover:border-primary/50 hover:shadow-sm'
                     )}>
                         <span className="relative z-10">{item.label}</span>
                         <ChevronDown className={cn('w-4 h-4 transition-transform duration-300', activeMenu === item.label && 'rotate-180')} />
