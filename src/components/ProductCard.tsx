@@ -72,10 +72,7 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
   }
 
   return (
-    <Link
-      to={`/products/${product.id}`}
-      className="group block bg-card rounded-xl border border-border hover:border-accent/30 shadow-elegant hover:shadow-elegant-lg transition-smooth overflow-hidden relative"
-    >
+    <div className="group bg-card rounded-xl border border-border hover:border-accent/30 shadow-elegant hover:shadow-elegant-lg transition-smooth overflow-hidden relative">
       {/* Stock Status Badge */}
       {!product.inStock && (
         <div className="absolute top-3 right-3 z-10">
@@ -85,36 +82,38 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
         </div>
       )}
 
-      {/* Image Container with Gradient Overlay */}
-      <div className="relative aspect-square overflow-hidden bg-gradient-subtle">
-        <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-smooth" />
-        <img
-          src={product.image}
-          alt={language === 'fa' ? product.name : product.nameEn}
-          className="w-full h-full object-contain p-6 group-hover:scale-110 transition-all duration-500"
-          loading="lazy"
-          width="400"
-          height="400"
-        />
-        
-        {/* Floating Action Buttons */}
-        <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-smooth">
-          <Button
-            size="sm"
-            className="bg-card/95 backdrop-blur-sm text-foreground hover:bg-accent hover:text-white shadow-elegant"
-            onClick={handleAddToRFQ}
-            disabled={isInRFQ}
-          >
-            <ShoppingCart className="w-4 h-4" />
-          </Button>
-          <Button
-            size="sm"
-            className="bg-gradient-accent text-white shadow-glow"
-          >
-            <Eye className="w-4 h-4" />
-          </Button>
+      {/* Clickable Image Container with Gradient Overlay */}
+      <Link to={`/products/${product.id}`} className="block">
+        <div className="relative aspect-square overflow-hidden bg-gradient-subtle">
+          <div className="absolute inset-0 bg-gradient-to-t from-primary/5 to-transparent opacity-0 group-hover:opacity-100 transition-smooth" />
+          <img
+            src={product.image}
+            alt={language === 'fa' ? product.name : product.nameEn}
+            className="w-full h-full object-contain p-6 group-hover:scale-110 transition-all duration-500"
+            loading="lazy"
+            width="400"
+            height="400"
+          />
+          
+          {/* Floating Action Buttons */}
+          <div className="absolute inset-0 flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-smooth">
+            <Button
+              size="sm"
+              className="bg-card/95 backdrop-blur-sm text-foreground hover:bg-accent hover:text-white shadow-elegant"
+              onClick={handleAddToRFQ}
+              disabled={isInRFQ}
+            >
+              <ShoppingCart className="w-4 h-4" />
+            </Button>
+            <Button
+              size="sm"
+              className="bg-gradient-accent text-white shadow-glow pointer-events-none"
+            >
+              <Eye className="w-4 h-4" />
+            </Button>
+          </div>
         </div>
-      </div>
+      </Link>
 
       {/* Content Section */}
       <div className="p-5 space-y-3">
@@ -131,10 +130,12 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
           ))}
         </div>
 
-        {/* Product Title */}
-        <h3 className="font-bold text-base leading-tight min-h-[3rem] group-hover:text-accent transition-smooth line-clamp-2">
-          {language === 'fa' ? product.name : product.nameEn}
-        </h3>
+        {/* Product Title - Clickable */}
+        <Link to={`/products/${product.id}`}>
+          <h3 className="font-bold text-base leading-tight min-h-[3rem] group-hover:text-accent transition-smooth line-clamp-2 cursor-pointer">
+            {language === 'fa' ? product.name : product.nameEn}
+          </h3>
+        </Link>
 
         {/* Category */}
         <p className="text-xs text-muted-foreground font-medium">
@@ -158,20 +159,22 @@ export const ProductCard = ({ product, viewMode = 'grid' }: ProductCardProps) =>
               {isInRFQ ? (language === 'fa' ? 'در استعلام' : 'In RFQ') : (language === 'fa' ? 'استعلام' : 'RFQ')}
             </span>
           </Button>
-          <Button 
-            size="sm" 
-            className="flex-1 bg-gradient-accent hover:brightness-110 text-white shadow-sm hover:shadow-glow transition-all"
-          >
-            <Eye className={`w-4 h-4 ${language === 'fa' ? 'ml-1' : 'mr-1'}`} />
-            <span className="text-xs font-medium text-white">
-              {language === 'fa' ? 'جزئیات' : 'Details'}
-            </span>
-          </Button>
+          <Link to={`/products/${product.id}`} className="flex-1">
+            <Button 
+              size="sm" 
+              className="w-full bg-gradient-accent hover:brightness-110 text-white shadow-sm hover:shadow-glow transition-all"
+            >
+              <Eye className={`w-4 h-4 ${language === 'fa' ? 'ml-1' : 'mr-1'}`} />
+              <span className="text-xs font-medium text-white">
+                {language === 'fa' ? 'جزئیات' : 'Details'}
+              </span>
+            </Button>
+          </Link>
         </div>
       </div>
 
       {/* Bottom Accent Line */}
       <div className="h-1 bg-gradient-accent transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
-    </Link>
+    </div>
   );
 };

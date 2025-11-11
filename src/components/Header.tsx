@@ -150,7 +150,7 @@ export const Header = () => {
                     const categorySubcategories = subcategories.filter(sub => sub.categoryId === category.id);
                     return <div key={category.id} className="space-y-4">
                               {/* Category Header */}
-                              <Link to={`/products?category=${category.id}`} className="flex items-center gap-3 p-3 rounded-lg hover:bg-secondary/80 transition-smooth group border border-transparent hover:border-accent/20">
+                              <Link to={`/products/category/${category.id}`} className="flex items-center gap-3 p-3 rounded-lg hover:bg-secondary/80 transition-smooth group border border-transparent hover:border-accent/20">
                                 <img src={category.image} alt={language === 'fa' ? category.name : category.nameEn} className="w-14 h-14 object-cover rounded-md shadow-sm" />
                                 <div className="flex-1">
                                   <h4 className="font-bold text-sm group-hover:text-accent transition-smooth">
@@ -164,7 +164,7 @@ export const Header = () => {
                               
                               {/* Subcategories List */}
                               {categorySubcategories.length > 0 && <div className={cn('space-y-1 border-border', language === 'fa' ? 'border-r-2 pr-3' : 'border-l-2 pl-3')}>
-                                  {categorySubcategories.map(subcategory => <Link key={subcategory.id} to={`/products?category=${category.id}&subcategory=${subcategory.id}`} className={cn('block px-3 py-2 text-xs rounded-md hover:bg-accent/10 hover:text-accent transition-smooth', 'border border-transparent hover:border-accent/20', language === 'fa' ? 'text-right' : 'text-left')}>
+                                  {categorySubcategories.map(subcategory => <Link key={subcategory.id} to={`/products/category/${category.id}`} className={cn('block px-3 py-2 text-xs rounded-md hover:bg-accent/10 hover:text-accent transition-smooth', 'border border-transparent hover:border-accent/20', language === 'fa' ? 'text-right' : 'text-left')}>
                                       <span className="font-medium">
                                         {language === 'fa' ? subcategory.name : subcategory.nameEn}
                                       </span>
@@ -280,7 +280,7 @@ export const Header = () => {
                               </div>
                               
                               {isExpanded && categorySubcategories.length > 0 && <div className="space-y-1 animate-accordion-down">
-                                  {categorySubcategories.map(subcategory => <Link key={subcategory.id} to={`/products?category=${category.id}&subcategory=${subcategory.id}`} className={cn('block px-4 py-1.5 text-xs rounded-md transition-smooth', language === 'fa' ? 'pr-12' : 'pl-12', 'text-muted-foreground hover:text-foreground hover:bg-secondary/30')} onClick={() => {
+                                  {categorySubcategories.map(subcategory => <Link key={subcategory.id} to={`/products/category/${category.id}`} className={cn('block px-4 py-1.5 text-xs rounded-md transition-smooth', language === 'fa' ? 'pr-12' : 'pl-12', 'text-muted-foreground hover:text-foreground hover:bg-secondary/30')} onClick={() => {
                           setIsMobileMenuOpen(false);
                           setExpandedCategory(null);
                           setActiveMenu(null);

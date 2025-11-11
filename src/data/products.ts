@@ -83,7 +83,7 @@ export const categories = [
     nameEn: 'Sample Preparation',
     description: 'تجهیزات آماده‌سازی و پردازش نمونه',
     descriptionEn: 'Sample preparation and processing equipment',
-    image: '/sample-prep.jpg',
+    image: '/sample-prep-professional.jpg',
   },
   {
     id: 'petroleum',

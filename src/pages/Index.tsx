@@ -229,7 +229,7 @@ const Index = () => {
               {categories.map((category) => (
                 <Link
                   key={category.id}
-                  to={`/products?category=${category.id}`}
+                  to={`/products/category/${category.id}`}
                   className="group relative overflow-hidden rounded-2xl shadow-elegant hover:shadow-elegant-xl transition-smooth"
                 >
                   <div className="aspect-[4/3] relative">
