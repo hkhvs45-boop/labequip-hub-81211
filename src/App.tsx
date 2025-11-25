@@ -10,7 +10,6 @@ import { RFQProvider } from "@/contexts/RFQContext";
 import { RFQDrawer } from "@/components/RFQDrawer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
 import Preloader from "@/components/Preloader";
-import ThemeToggle from "@/components/ThemeToggle";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import CategoryProducts from "./pages/CategoryProducts";
@@ -36,7 +35,6 @@ const App = () => {
               <BrowserRouter>
                 <RFQDrawer />
                 <WhatsAppFloat />
-                <ThemeToggle />
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/products" element={<Products />} />
