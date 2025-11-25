@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { RFQProvider } from "@/contexts/RFQContext";
 import { RFQDrawer } from "@/components/RFQDrawer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import ContactFloat from "@/components/ContactFloat";
 import Preloader from "@/components/Preloader";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
@@ -34,6 +35,7 @@ const App = () => {
               <Sonner position="top-center" />
               <BrowserRouter>
                 <RFQDrawer />
+                <ContactFloat />
                 <WhatsAppFloat />
                 <Routes>
                   <Route path="/" element={<Index />} />
