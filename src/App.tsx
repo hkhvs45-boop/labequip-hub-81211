@@ -9,6 +9,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import { RFQProvider } from "@/contexts/RFQContext";
 import { RFQDrawer } from "@/components/RFQDrawer";
 import WhatsAppFloat from "@/components/WhatsAppFloat";
+import Preloader from "@/components/Preloader";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import CategoryProducts from "./pages/CategoryProducts";
@@ -28,6 +29,7 @@ const App = () => {
         <LanguageProvider>
           <RFQProvider>
             <TooltipProvider>
+              <Preloader />
               <Toaster />
               <Sonner position="top-center" />
               <BrowserRouter>
