@@ -8,6 +8,7 @@ import { HelmetProvider } from 'react-helmet-async';
 import { LanguageProvider } from "@/contexts/LanguageContext";
 import { RFQProvider } from "@/contexts/RFQContext";
 import { RFQDrawer } from "@/components/RFQDrawer";
+import WhatsAppFloat from "@/components/WhatsAppFloat";
 import Index from "./pages/Index";
 import Products from "./pages/Products";
 import CategoryProducts from "./pages/CategoryProducts";
@@ -31,6 +32,7 @@ const App = () => {
               <Sonner position="top-center" />
               <BrowserRouter>
                 <RFQDrawer />
+                <WhatsAppFloat />
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/products" element={<Products />} />
